@@ -38,14 +38,23 @@ bobo_point_det=[]
 for str in ok:
     ok_co=str.split(" ")
     if ok_co[0].isdigit():
-        #
+        #算分數
         sub=[]
-        score=-0.04622332
+        score=0
         #for node
-        score=score+float(ok_co[7])*0.01259362
-
+        if int(ok_co[7])<20:
+            score=score+0.3
+        elif int(ok_co[7])>=40 and int(ok_co[7])<=100:
+            score=score+0.2
+        else:
+            score=score+0.1 
         #datarate
-        score=score+float(ok_co[0])*(-0.00133547)
+        if int(ok_co[0])>=10 and int(ok_co[0])<40:
+            score=score+0.1
+        elif int(ok_co[0])>=40 and int(ok_co[0])<70:
+            score=score+0.2
+        elif int(ok_co[0])>=70:
+            score=score+0.3
 
         # 10~40m 0.1
         # 40~70m 0.2
@@ -56,19 +65,25 @@ for str in ok:
         #0 ~ -20 0.3
         #-20~-40 0.2
         #-40~-60 0.1
-        
-        score=score+float(ok_co[8])*(-0.02127347)
+        if int(ok_co[8])<=0 and int(ok_co[8])>-20:
+            score=score+0.3
+        elif int(ok_co[8])<=-20 and int(ok_co[8])>-40:
+            score=score+0.2
+        elif int(ok_co[8])<=-40:
+            score=score+0.1 
         
         ok_co[6]=abs(int(ok_co[6]))
         while ok_co[6]>180:
             ok_co[6]=360-ok_co[6]
-
-        score=score+float(ok_co[6])*0.0003547
-        score=-1*score
-        #***********************
+        if ok_co[6]<=180 and ok_co[6]>90:
+            score=score+0.1
+        elif ok_co[6]<=90 and ok_co[6]>60:
+            score=score+0.2
+        elif ok_co[6]<=60 and ok_co[6]>=0:
+            score=score+0.3
         #score=int(ok_co[8])
         #delay.append(ok_co[2])
-        
+        #score=-1*float(ok_co[7])
         print(score)
         sub.append(score)
         sub.append(ok_co[2])
