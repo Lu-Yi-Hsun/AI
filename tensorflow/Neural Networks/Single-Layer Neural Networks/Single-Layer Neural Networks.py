@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 x_data=np.linspace(1,11,111).astype(np.float32)
 #x_data=np.random.rand(100).astype(np.float32)
-y_data=10*x_data+10.3
+y_data=10*x_data+5
 
 
 Weights=tf.Variable(tf.zeros([1]))
@@ -14,13 +14,15 @@ biases=tf.Variable(tf.zeros([1]))
 
 y=Weights*x_data+biases
 
-loss = tf.reduce_mean(tf.square(y-y_data))#用最小平方法 可以求出回歸直線 不能亂用
+#loss = tf.reduce_mean(tf.square(y-y_data))#用最小平方法 可以求出回歸直線 不能亂用
+
+loss=tf.reduce_mean(tf.reduce_sum(tf.square(y-y_data)))
 #************Optimizer*********
 #****MomentumOptimizer
 #optimizer=tf.train.MomentumOptimizer(0.1,0.2)#梯度下降法 Gradient descent
 
 
-optimizer=tf.train.GradientDescentOptimizer(0.01)
+optimizer=tf.train.GradientDescentOptimizer(0.0000001)
 
 train =optimizer.minimize(loss)
 
@@ -33,10 +35,12 @@ sess.run(init)
 fig = plt.figure()
 ax = fig.add_subplot(1,1,1)
 ax.scatter(x_data, y_data,color="green")
+lines = ax.plot(3, 3, 'r-', lw=1)
+ax.legend(labels=['prediction line','y=10x+5'],loc='best')
 plt.ion()
 plt.show()
-
-for step in range(2000):
+plt.pause(2.5)
+for step in range(20000):
     if step % 100 == 0:
         # 只是顯示參數
         try:
@@ -47,7 +51,7 @@ for step in range(2000):
         #for plt
 
         lines = ax.plot(x_data, sess.run(y), 'r-', lw=1)
-        plt.pause(0.01)
+        plt.pause(1)
 
 
     sess.run(train)  # 真正訓練
