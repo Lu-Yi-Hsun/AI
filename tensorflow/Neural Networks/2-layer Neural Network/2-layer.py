@@ -66,8 +66,9 @@ plt.show()
 
 
 
-for i in range(10000000):
+for i in range(100000):
     # training
+    print(i)
     sess.run(train_step, feed_dict={xs: x_data, ys: y_data})
     if i % 50 == 0:
         # to visualize the result and improvement
@@ -83,29 +84,9 @@ for i in range(10000000):
 
         #print(sess.run(loss,feed_dict={xs: x_data, ys: y_data}))
 
-        print("weight1")
-        print(sess.run(Weights1,feed_dict={xs: x_data, ys: y_data}))
-        print("l1")
-        print(sess.run(l1, feed_dict={xs: x_data, ys: y_data}))
-        print("weight2")
-        print(sess.run(Weights2, feed_dict={xs: x_data, ys: y_data}))
 
         # plot the prediction
         lines = ax.plot(x_data, prediction_value, 'r-', lw=5)
         plt.pause(0.000000001)
-
-print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-print("weight1")
-print(sess.run(Weights1,feed_dict={xs: x_data, ys: y_data}))
-print("bas1")
-print(sess.run(biases1,feed_dict={xs: x_data, ys: y_data}))
-print("l1")
-print(sess.run(l1, feed_dict={xs: x_data, ys: y_data}))
-print("weight2")
-print(sess.run(Weights2, feed_dict={xs: x_data, ys: y_data}))
-print("bas2")
-print(sess.run(biases2,feed_dict={xs: x_data, ys: y_data}))
-print("l2")
-print(sess.run(prediction, feed_dict={xs: x_data, ys: y_data}))
 
 
