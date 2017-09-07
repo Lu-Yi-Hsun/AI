@@ -14,6 +14,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 def add_layer(inputs, in_size, out_size, activation_function=None):
+
     Weights = tf.Variable(tf.random_normal([in_size, out_size]))
     biases = tf.Variable(tf.zeros([1, out_size]) + 0.1)
     Wx_plus_b = tf.matmul(inputs, Weights) + biases
