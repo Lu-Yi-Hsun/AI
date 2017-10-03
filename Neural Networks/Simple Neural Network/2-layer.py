@@ -13,6 +13,7 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+
 def add_layer(inputs, in_size, out_size, activation_function=None):
 
     Weights = tf.Variable(tf.random_normal([in_size, out_size]))
@@ -29,14 +30,13 @@ def nu():
     xs = tf.placeholder(tf.float32, [None, 1])
     ys = tf.placeholder(tf.float32, [None, 1])
     # add hidden layer 隱藏層
-    neural_node=15
+    neural_node=150
     l1 ,Weights1,biases1= add_layer(xs, 1, neural_node, activation_function=tf.nn.relu)
 
-    l2 ,Weights2,biases2= add_layer(l1, neural_node, neural_node, activation_function=tf.nn.relu)
-    l3 ,Weights3,biases3= add_layer(l2, neural_node, neural_node, activation_function=tf.nn.relu)
+
 
     # add output layer 輸出層
-    prediction ,Weights2,biases2= add_layer(l3, neural_node, 1, activation_function=None)
+    prediction ,Weights2,biases2= add_layer(l1, neural_node, 1, activation_function=None)
 
     # the error between prediction and real data
     loss = tf.reduce_mean(tf.reduce_sum(tf.square(ys-prediction), reduction_indices=[1]))
@@ -49,7 +49,7 @@ def nu():
     return  sess,train_step,xs,ys,prediction
 
 
-x_data = np.linspace(-5, 10, 2000)[:, np.newaxis]
+x_data = np.linspace(-5, 10, 1000)[:, np.newaxis]
 noise = np.random.normal(0, 0.05, x_data.shape)
 y_data = 2*x_data**3*(np.sin(x_data)/2) - 0.5 + noise*300
 

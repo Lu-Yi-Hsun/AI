@@ -24,6 +24,7 @@ loss=tf.reduce_mean(tf.reduce_sum(tf.square(y-y_data)))
 
 optimizer=tf.train.GradientDescentOptimizer(0.0000001)
 
+
 train =optimizer.minimize(loss)
 
 init=tf.global_variables_initializer()
