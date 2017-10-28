@@ -38,6 +38,8 @@ def add_layer(inputs, in_size, out_size, activation_function=None):
     Wx_plus_b = tf.matmul(inputs, Weights) + biases
     if activation_function is None:
         outputs = Wx_plus_b
+    elif activation_function =="Swish":
+        outputs = Wx_plus_b/(1+tf.exp(-1*Wx_plus_b))
     else:
         outputs = activation_function(Wx_plus_b)
     return outputs,Weights,biases
